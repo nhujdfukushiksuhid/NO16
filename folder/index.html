@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>介護施設 法定研修診断ツール - 診断スタート</title>
+    
+    <style>
+        /* Strict Design System */
+        :root {
+            --primary: #ff9900;       
+            --primary-hover: #e68a00; 
+            --primary-ring: rgba(255, 153, 0, 0.3); 
+            --text-main: #0f172a;     
+            --text-muted: #64748b;    
+            --surface: #ffffff;
+            --background: #f8fafc;    
+            --border: #e2e8f0;        
+            --danger: #ef4444;        
+            --info-bg: #fff7ed;       
+            --info-text: #c2410c;     
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 1rem;
+            font-size: 16px; 
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        h1 { color: var(--text-main); font-weight: 700; margin-top: 0; letter-spacing: -0.025em; }
+        h1.title { font-size: 1.5rem; text-align: center; margin-bottom: 0.5rem; }
+        p.subtitle { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        .save-guide {
+            background-color: var(--info-bg);
+            color: var(--info-text);
+            padding: 1rem;
+            text-align: center;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            border: 1px solid #fed7aa; 
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .required-badge {
+            background-color: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            color: var(--text-main);
+            background-color: var(--surface);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-ring);
+        }
+
+        button.primary-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border-radius: 9999px; 
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button.primary-btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+        button.primary-btn:active { transform: translateY(0); }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="container fade-in">
+        <div class="save-guide">
+            📱 診断スタート<br>
+            <span style="font-weight:400; font-size:0.85rem;">情報を入力してリストを作成してください。</span>
+        </div>
+
+        <div class="card" style="border-top: 6px solid var(--primary);">
+            <h1 class="title">介護施設 法定研修診断ツール</h1>
+            <p class="subtitle">必要な法定研修リストを1分で作成します。</p>
+
+            <form id="auditForm" action="https://76auto.biz/nfja/responder.php" method="POST" enctype="multipart/form-data">
+                
+                <input type="hidden" name="mcode" value="UTF-8">
+                <input type="hidden" name="tno" value="62">
+                <input type="hidden" name="spflg" value="1">
+                <input type="hidden" name="rgst" value="entry">
+                <input type="hidden" name="sbm" value="登録"> 
+
+                <div class="form-group">
+                    <label>法人・施設名<span class="required-badge">必須</span></label>
+                    <input type="text" name="fld1" placeholder="例：株式会社ケア・サステナブル 訪問介護サステナ" required>
+                </div>
+
+                <div class="form-group">
+                    <label>代表者氏名<span class="required-badge">必須</span></label>
+                    <input type="text" name="name1" placeholder="例：山田 太郎" required>
+                </div>
+
+                <div class="form-group">
+                    <label>事業形態<span class="required-badge">必須</span></label>
+                    <select name="fld2" required>
+                        <option value="" disabled selected>▼ 選択してください</option>
+                        <option value="訪問介護">訪問介護</option>
+                        <option value="訪問入浴">訪問入浴</option>
+                        <option value="訪問看護">訪問看護</option>
+                        <option value="訪問リハビリ">訪問リハビリ</option>
+                        <option value="通所介護">通所介護</option>
+                        <option value="通所リハビリ">通所リハビリ</option>
+                        <option value="居宅介護支援">居宅介護支援</option>
+                        <option value="福祉用具貸与">福祉用具貸与</option>
+                        <option value="小規模多機能">小規模多機能</option>
+                        <option value="認知症GH">認知症GH</option>
+                        <option value="特定施設入居者生活">特定施設入居者生活</option>
+                        <option value="介護老人福祉施設">介護老人福祉施設</option>
+                        <option value="介護老人保健施設">介護老人保健施設</option>
+                        <option value="介護医療院">介護医療院</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>メールアドレス<span class="required-badge">必須</span></label>
+                    <input type="email" name="email" placeholder="result@example.com" required>
+                </div>
+
+                <button type="submit" id="submitBtn" class="primary-btn">
+                    <span>診断してリストを作成</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const safeStorage = {
+            setItem: (key, val) => {
+                try { localStorage.setItem(key, val); } catch (e) { console.warn('Storage disabled'); }
+            }
+        };
+
+        const form = document.getElementById('auditForm');
+        
+        // 💡 送信ボタンが押された瞬間、次の画面で使うデータだけを記憶させ、そのままオートビズへ送信（画面遷移）します。
+        form.addEventListener('submit', () => {
+            const formData = new FormData(form);
+            const data = {
+                facilityName: formData.get('fld1'),
+                repName: formData.get('name1'),
+                businessType: formData.get('fld2'),
+                email: formData.get('email'),
+                date: new Date().toLocaleDateString('ja-JP')
+            };
+            
+            // ローカルストレージに保存（結果画面で引き出します）
+            safeStorage.setItem('last_audit_data', JSON.stringify(data));
+            
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<span>通信中...</span>';
+            // ページ遷移を邪魔しないようにするため、preventDefaultなどは一切書きません。
+        });
+    </script>
+</body>
+</html>

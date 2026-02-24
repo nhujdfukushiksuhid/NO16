@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>法定研修実施チェックシート</title>
+    
+    <style>
+        /* Strict Design System */
+        :root {
+            --primary: #ff9900;       
+            --primary-hover: #e68a00; 
+            --text-main: #0f172a;     
+            --text-muted: #64748b;    
+            --surface: #ffffff;
+            --background: #f8fafc;    
+            --border: #e2e8f0;        
+            --danger: #ef4444;        
+            --info-bg: #fff7ed;       
+            --info-text: #c2410c;     
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            
+            /* Facebook/Meta-like Friendly UI Colors */
+            --meta-bg: #f0f2f5;
+            --meta-icon-bg: #e4e6eb;
+            --meta-text: #050505;
+            --meta-sub: #65676b;
+            --meta-blue: #1877f2;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 1rem;
+            font-size: 16px; 
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        h1 { color: var(--text-main); font-weight: 700; margin-top: 0; letter-spacing: -0.025em; }
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-muted); font-size: 0.9rem; }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--text-main);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap; 
+        }
+
+        .header-left-info { flex: 1; min-width: 200px; }
+        .info-row { margin-bottom: 0.5rem; display: flex; align-items: baseline; }
+        .info-label { width: 100px; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+        .info-value { font-weight: 700; font-size: 1.1rem; }
+
+        .header-right-ad {
+            width: 200px;
+            background-color: #fff1f2; 
+            border: 2px solid var(--danger);
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+            margin: 0 auto; 
+        }
+
+        .ad-title { font-size: 0.7rem; color: var(--danger); font-weight: 800; margin-bottom: 0.5rem; line-height: 1.3; }
+        .qr-placeholder {
+            width: 80px; height: 80px;
+            background-color: white;
+            margin: 0 auto 0.5rem auto;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ad-sub { font-size: 0.65rem; font-weight: 700; color: var(--text-main); }
+
+        .intro-message {
+            background: var(--background);
+            padding: 0.75rem 1rem;
+            border-left: 4px solid var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .checklist-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            border: 2px solid var(--text-main);
+        }
+        .checklist-table th, .checklist-table td {
+            border: 1px solid var(--text-main);
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+        .checklist-table th { background-color: #f1f5f9; font-weight: 700; text-align: center; }
+        .checklist-table .check-col { width: 60px; text-align: center; }
+        
+        .checkbox-square {
+            display: inline-block;
+            width: 18px; height: 18px;
+            border: 2px solid var(--text-main);
+            background: white;
+            border-radius: 2px;
+        }
+
+        button.secondary-btn {
+            background-color: var(--text-muted);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            margin-top: 1rem;
+            width: auto;
+            display: inline-block;
+        }
+
+        /* IAB (In-App Browser) Guide UI */
+        .iab-guide-container {
+            background-color: var(--meta-bg);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            max-width: 360px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+            animation: fadeIn 0.5s ease-out;
+        }
+        .iab-icon-circle {
+            width: 48px; height: 48px;
+            background-color: var(--meta-icon-bg);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+        }
+        .iab-title {
+            color: var(--meta-text);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .iab-desc {
+            color: var(--meta-sub);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+        .iab-step {
+            background-color: white;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--meta-blue);
+            box-shadow: var(--shadow-md);
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .iab-sub-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+
+        @media print {
+            body { background: white; padding: 0; margin: 0; }
+            .container { max-width: 100%; }
+            .card { box-shadow: none !important; border: none !important; padding: 0 !important; margin: 0 !important; }
+            .action-area { display: none !important; }
+            @page { margin: 15mm; }
+        }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="container fade-in">
+        <div id="printable-area" class="card">
+            <h1 id="pdf-title" class="text-center" style="font-size: 1.5rem; border-bottom: 2px solid var(--text-main); padding-bottom: 1rem; margin-bottom: 1.5rem;">法定研修実施チェックシート</h1>
+            
+            <div class="header-container">
+                <div class="header-left-info">
+                    <div class="info-row"><span class="info-label">施設名</span> <span class="info-value" id="out-facility">読込中...</span></div>
+                    <div class="info-row"><span class="info-label">代表者</span> <span class="info-value" id="out-rep">読込中...</span></div>
+                    <div class="info-row"><span class="info-label">事業形態</span> <span class="info-value" id="out-type">読込中...</span></div>
+                    <div class="info-row"><span class="info-label">作成日</span> <span class="info-value" id="out-date">読込中...</span></div>
+                </div>
+                
+                <div class="header-right-ad">
+                    <div class="ad-title">▼ 研修・加算の無料相談 ▼</div>
+                    <div class="qr-placeholder">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://example.com" alt="QR" style="width:100%; height:100%;">
+                    </div>
+                    <div class="ad-sub">スマホでお問い合わせ</div>
+                </div>
+            </div>
+
+            <p class="intro-message">貴事業所が実施しなければならない法定研修一覧</p>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1rem;">
+                ※国が定める法定研修です。指定権者（自治体）により追加研修がある場合があります。必ず条例をご確認ください。
+            </p>
+
+            <table class="checklist-table">
+                <thead>
+                    <tr>
+                        <th>研修プログラム内容</th>
+                        <th style="width: 100px;">実施日</th>
+                        <th class="check-col">確認</th>
+                    </tr>
+                </thead>
+                <tbody id="checklist-body">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="action-area" id="action-area" style="text-align: center; margin-top: 2rem;">
+            
+            <div class="iab-guide-container">
+                <div class="iab-icon-circle">🔒</div>
+                <div class="iab-title">PDFファイルを保存するには</div>
+                <div class="iab-desc">
+                    ファイルのダウンロードや印刷を行うために、以下の手順で外部ブラウザを開いてください。
+                </div>
+                <div class="iab-step">
+                    右上のメニュー &nbsp;<strong>•••</strong>&nbsp; または &nbsp;<strong>共有</strong>&nbsp; から<br>
+                    「ブラウザで開く」を選択
+                </div>
+                <div class="iab-sub-note">
+                    ※既にSafariやChromeで開いている方は、ブラウザのメニューから「共有/印刷」または「PDFとして保存」を選択してください。
+                </div>
+            </div>
+
+            <button onclick="window.location.href='index.html'" class="secondary-btn">戻って別の事業所で作成</button>
+        </div>
+    </div>
+
+    <script>
+        const ALL_TYPES = [
+            "訪問介護", "訪問入浴", "訪問看護", "訪問リハビリ", 
+            "通所介護", "通所リハビリ", "居宅介護支援", "福祉用具貸与", 
+            "小規模多機能", "認知症GH", "特定施設入居者生活", 
+            "介護老人福祉施設", "介護老人保健施設", "介護医療院"
+        ];
+
+        const TRAINING_DATA = [
+            { name: "① 認知症、認知症ケアに関する研修", targets: "ALL" },
+            { name: "② プライバシー保護に関する研修", targets: "ALL" },
+            { name: "③ 接遇に関する研修", targets: ["訪問介護", "訪問入浴"] },
+            { name: "④ 倫理・法令遵守に関する研修", targets: "ALL" },
+            { name: "⑤ 事故の発生、予防、再発防止に関する研修", targets: ALL_TYPES.filter(t => t !== "居宅介護支援") },
+            { name: "⑥ 緊急時の対応に関する研修", targets: ALL_TYPES.filter(t => t !== "居宅介護支援") },
+            { name: "⑦ 感染症及び食中毒の発生及び蔓延防止に関する研修", targets: ALL_TYPES.filter(t => t !== "居宅介護支援") },
+            { name: "⑧ 身体拘束の排除の取り組みに関する研修", targets: ALL_TYPES.filter(t => !["訪問介護", "訪問入浴", "訪問リハビリ", "居宅介護支援"].includes(t)) },
+            { name: "⑨ 非常災害時の対応に関する研修", targets: "ALL" },
+            { name: "⑩ 介護予防及び要介護の進行予防に関する研修", targets: ["特定施設入居者生活"] },
+            { name: "⑪ 医療に関する研修", targets: ["介護老人福祉施設"] },
+            { name: "⑫ ターミナルケア（終末医療）に関する研修", targets: ["介護老人福祉施設", "介護医療院"] },
+            { name: "⑬ 精神的ケアに関する研修", targets: ["認知症GH", "介護老人福祉施設"] },
+            { name: "⑭ 業務継続計画（BCP）", targets: "ALL" },
+            { name: "⑮ ハラスメント対策・対応", targets: "ALL" },
+            { name: "⑯ 高齢者虐待防止、関連法含む虐待防止に関する研修", targets: "ALL" },
+            { name: "⑰ 看取り看護に関する研修（加算算定時など）", targets: ["認知症GH", "特定施設入居者生活", "介護老人福祉施設"] }
+        ];
+
+        function decodeSafeBase64(encodedStr) {
+            try {
+                let base64 = encodedStr.replace(/-/g, '+').replace(/_/g, '/');
+                while (base64.length % 4) {
+                    base64 += '=';
+                }
+                const safeStr = atob(base64);
+                return JSON.parse(decodeURIComponent(safeStr));
+            } catch (e) {
+                console.error("データの復元に失敗しました:", e);
+                return null;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 以下、通常のデータ読み込みロジック
+            let data = null;
+            const urlParams = new URLSearchParams(window.location.search);
+            const encodedData = urlParams.get('data');
+            if (encodedData) {
+                data = decodeSafeBase64(encodedData);
+            }
+
+            if (!data) {
+                try {
+                    const stored = localStorage.getItem('last_audit_data');
+                    if (stored) {
+                        data = JSON.parse(stored);
+                    }
+                } catch (e) {
+                    console.warn("Local storage access failed", e);
+                }
+            }
+
+            if (!data) {
+                alert("診断データが見つかりません。入力画面からやり直してください。");
+                window.location.href = 'index.html'; 
+                return;
+            }
+
+            renderResult(data);
+        });
+
+        function renderResult(data) {
+            document.getElementById('out-facility').innerText = data.facilityName || '未入力';
+            document.getElementById('out-rep').innerText = data.repName || '未入力';
+            document.getElementById('out-type').innerText = data.businessType || '未選択';
+            document.getElementById('out-date').innerText = data.date || new Date().toLocaleDateString('ja-JP');
+
+            const tbody = document.getElementById('checklist-body');
+            tbody.innerHTML = '';
+            
+            TRAINING_DATA.forEach(item => {
+                let isTarget = false;
+                if (item.targets === "ALL") {
+                    isTarget = true;
+                } else if (Array.isArray(item.targets) && item.targets.includes(data.businessType)) {
+                    isTarget = true;
+                }
+
+                if (isTarget) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.name}</td>
+                        <td></td>
+                        <td class="check-col"><span class="checkbox-square"></span></td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
