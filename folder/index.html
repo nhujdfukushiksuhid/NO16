@@ -105,6 +105,23 @@
             box-shadow: 0 0 0 3px var(--primary-ring);
         }
 
+        .privacy-policy-link {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-policy-link a {
+            color: var(--primary);
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .privacy-policy-link a:hover {
+            color: var(--primary-hover);
+        }
+
         button.primary-btn {
             background-color: var(--primary);
             color: white;
@@ -183,6 +200,10 @@
                 <div class="form-group">
                     <label>メールアドレス<span class="required-badge">必須</span></label>
                     <input type="email" name="email" placeholder="result@example.com" required>
+                </div>
+
+                <div class="privacy-policy-link">
+                    個人情報の取り扱いについては、<a href="https://sites.google.com/apdream515.jp/online-kenshu/%E3%83%9B%E3%83%BC%E3%83%A0/%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご覧ください。
                 </div>
 
                 <button type="submit" id="submitBtn" class="primary-btn">
