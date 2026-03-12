@@ -361,6 +361,52 @@
                 }
             });
         }
+
+        // =========================================================
+        // ▼▼ ここから追加：GASへデータを裏側で送信する処理 ▼▼
+        // =========================================================
+        
+        // 1. GAS Web AppのURLをここに貼り付けてください（末尾の /exec まで）
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/あなたのGASのデプロイID/exec";
+        
+        function sendDataToGAS() {
+            // オートビズから送られてきたURLのパラメータ（?name1=...等）をそのまま取得
+            const currentParams = new URLSearchParams(window.location.search);
+            
+            // オートビズから直接 token を送れない場合の対策として、ここで追加する
+            currentParams.append("token", "autobiz_secret_2024");
+            
+            // パラメータが一つもない（直接result.htmlを開いた等）場合は送信しない
+            if (!currentParams.has("name1") && !currentParams.has("email")) {
+                console.warn("GAS送信スキップ: 送信すべきパラメータがありません");
+                return;
+            }
+
+            // 完全な送信先URLを生成
+            const requestUrl = GAS_WEB_APP_URL + "?" + currentParams.toString();
+
+            // fetch APIを使って裏側でGASへ送信
+            fetch(requestUrl, {
+                method: "GET",
+                mode: "no-cors", // 重要: GitHubとGoogle間のCORSエラーを無視して「送信のみ」を行う設定
+                cache: "no-cache"
+            })
+            .then(() => {
+                // no-cors の場合、GASからの返答(Success等)はブラウザ仕様で読めませんが送信は成功しています
+                console.info("GASへのデータ転送リクエストを完了しました。");
+            })
+            .catch(error => {
+                console.error("GASへの送信時にエラーが発生しました:", error);
+            });
+        }
+
+        // ページ読み込み完了時にGAS送信を実行
+        document.addEventListener('DOMContentLoaded', () => {
+            // （既存のデータ読み込み・画面表示処理...）
+            
+            // 画面描画の直後にGASへ送信
+            sendDataToGAS();
+        });
     </script>
 </body>
 </html>
